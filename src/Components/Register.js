@@ -1,5 +1,6 @@
 import React from "react";
 import SimpleReactValidator from "simple-react-validator";
+import axios from "axios";
 
 class RegisterFrom extends React.Component {
   constructor() {
@@ -50,10 +51,16 @@ class RegisterFrom extends React.Component {
 
   printRegisterValue = (e) => {
     if (this.validator.allValid()) {
-      this.state.userDetail.push(this.state.userData);
-      this.setState({ userDetail: this.state.userDetail });
-      console.log(this.state.userDetail);
-      this.setState((this.loadData = true));
+      axios
+      .post('https://jsonplaceholder.typicode.com/users',{
+        name:this.state.userData.firstName,
+        username:this.state.userData.lastName,
+        email:this.state.userData.email
+      })
+      // this.state.userDetail.push(this.state.userData);
+      // this.setState({ userDetail: this.state.userDetail });
+      // console.log(this.state.userDetail);
+      // this.setState((this.loadData = true));
     } else {
       this.validator.showMessages();
       this.forceUpdate();
